@@ -13,6 +13,7 @@ public class Approx {
 	}
 	
 	public static double distance(double[] p1, double[] p2) {
+		//O(m)
 		double distance = 0;
 		for (int i = 0;i < p1.length;i++) {
 			distance += Math.pow((p1[i] - p2[i]), 2);
@@ -21,6 +22,7 @@ public class Approx {
 	}
 	
 	public static double[] farthest(double[] point) {
+		//O(n*m)
 		double[] res = new double[point.length];
 		double max = 0;
 		for (int i = 0;i < set.length;i++) {
@@ -34,6 +36,7 @@ public class Approx {
 	}
 	
 	public static double[] middle(double[] p1, double[] p2) {
+		//O(m)
 		double[] res = p1;
 		for (int i = 0;i < res.length;i++) {
 			res[i] += p2[i];
