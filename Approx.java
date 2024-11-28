@@ -5,7 +5,7 @@ public class Approx {
 	public static void main(String[] args) {
 		double[][] points = {{0,0,0},{0,1,0},{1,0,0},{1,1,0},{1,2,0},{2,1,0},{2,2,0},{3,4,6}};
 		set = points;
-		double[] p = {0,0};
+		double[] p = {0,0,0};
 		System.out.println(distance(p, points[3]));
 		System.out.println(distance(p, farthest(p)));
 		System.out.println(diameterFast(set, 1));
