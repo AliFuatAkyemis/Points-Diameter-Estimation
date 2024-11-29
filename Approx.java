@@ -1,50 +1,29 @@
 
 public class Approx {
-	static double[][] set;
+	private static double[][] set;
 	
 	public static void main(String[] args) {
-		double[][] points = {{0,0,0},{0,1,0},{1,0,0},{1,1,0},{1,2,0},{2,1,0},{2,2,0},{3,4,6}};
-		set = points;
-		double[] p = {0,0,0};
-		System.out.println(distance(p, points[3]));
-		System.out.println(distance(p, farthest(p)));
-		System.out.println(diameterFast(set, 1));
-		System.out.println(diameterRandomized(set, 1));
+		set = cubeSet(50);
+		display2D(set);
+//		double[] p = {0,0,0};
+		double time1 = 0, time2 = 0, result1 = 0, result2 = 0;
+//		System.out.println(arrayToString(farthest(p)));
+//		System.out.println(distance(p, farthest(p)));
+		double start = System.currentTimeMillis();
+		result1 = diameterFast(set, 1);
+		double end = System.currentTimeMillis();
+		time1 = end - start;
+		start = System.currentTimeMillis();
+		result2 = diameterRandomized(set, 1);
+		end = System.currentTimeMillis();
+		time2 = end - start;
+		System.out.println("Fast: " + time1);
+		System.out.println(result1);
+		System.out.println("Randomized: " + time2);
+		System.out.println(result2);
 	}
 	
-	public static double distance(double[] p1, double[] p2) {
-		//O(m)
-		double distance = 0;
-		for (int i = 0;i < p1.length;i++) {
-			distance += Math.pow((p1[i] - p2[i]), 2);
-		}
-		return Math.sqrt(distance);
-	}
-	
-	public static double[] farthest(double[] point) {
-		//O(n*m)
-		double[] res = new double[point.length];
-		double max = 0;
-		for (int i = 0;i < set.length;i++) {
-			double dist = distance(point, set[i]);
-			if (max < dist) {
-				res = set[i];
-				max = dist; 
-			}
-		}
-		return res;
-	}
-	
-	public static double[] middle(double[] p1, double[] p2) {
-		//O(m)
-		double[] res = p1;
-		for (int i = 0;i < res.length;i++) {
-			res[i] += p2[i];
-			res[i] /= 2;
-		}
-		return res;
-	}
-	
+	//Fast approximation algorithm:
 	public static double diameterFast(double[][] points, int t) {
 		double dmax = 0; int i = 0;
 		int k = (int) (Math.random() * points.length);
@@ -63,6 +42,7 @@ public class Approx {
 		return dmax;
 	}
 	
+	//Randomized version of fast approximation algorithm:
 	public static double diameterRandomized(double[][] points, int t) {
 		double dmax = 0; int i = 0;
 		int k = (int) (Math.random() * points.length);
@@ -85,5 +65,95 @@ public class Approx {
 			}
 		}
 		return dmax;
+	}
+	
+	//Brute Force:
+	public static double diameterBruteForce(double[][] points) {
+		//O(n^2)
+		double dmax = 0, distance = 0;
+		for (int i = 0;i < points.length;i++) {
+			for (int j = 0;j < points.length;i++) {
+				distance = distance(points[i], points[j]);
+				if (distance > dmax) dmax = distance;
+			}
+		}
+		return dmax;
+	}
+	
+	//Assistance Methods:
+	
+	//Distance between 2 given points:
+	public static double distance(double[] p1, double[] p2) {
+		//O(m)
+		double distance = 0;
+		for (int i = 0;i < p1.length;i++) {
+			distance += Math.pow((p1[i] - p2[i]), 2);
+		}
+		return Math.sqrt(distance);
+	}
+	
+	//Farthest point in the set to given point:
+	public static double[] farthest(double[] point) {
+		//O(n)
+		double[] res = new double[point.length];
+		double max = 0;
+		for (int i = 0;i < set.length;i++) {
+			double dist = distance(point, set[i]);
+			if (max < dist) {
+				res = set[i];
+				max = dist; 
+			}
+		}
+		return res;
+	}
+	
+	//Middle point of given 2 points:
+	public static double[] middle(double[] p1, double[] p2) {
+		//O(m)
+		double[] res = p1;
+		for (int i = 0;i < res.length;i++) {
+			res[i] += p2[i];
+			res[i] /= 2;
+		}
+		return res;
+	}
+	
+	//toString() method for an array:
+	public static String arrayToString(double[] set) {
+		//O(n)
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		for (int i = 0;i < set.length;i++) {
+			sb.append((int)set[i] + ",");
+		} sb.deleteCharAt(sb.length()-1);
+		return sb.append("}").toString();
+	}
+	
+	//Display method for a 2D array:
+	public static void display2D(double[][] set) {
+		//O(n)
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		for (int i = 0;i < set.length;i++) {
+			sb.append(arrayToString(set[i]) + ",");
+		} sb.deleteCharAt(sb.length()-1);
+		System.out.println(sb.append("}").toString());
+	}
+		
+	//Cubic set initializer:
+	public static double[][] cubeSet(int size) {
+		//O(n^3)
+		size++;
+		double[][] res = new double[size*size*size][3];
+		for (int i = 0;i < size;i++) {
+			for (int j = 0;j < size;j++) {
+				for (int k = 0;k < size;k++) {
+					res[i*size*size+j*size+k][0] = i;
+					res[i*size*size+j*size+k][1] = j;
+					res[i*size*size+j*size+k][2] = k;
+				}
+			}
+		}
+		return res;
 	}
 }
