@@ -3,12 +3,8 @@ public class Approx {
 	private static double[][] set;
 	
 	public static void main(String[] args) {
-		set = cubeSet(50);
-		display2D(set);
-//		double[] p = {0,0,0};
-		double time1 = 0, time2 = 0, result1 = 0, result2 = 0;
-//		System.out.println(arrayToString(farthest(p)));
-//		System.out.println(distance(p, farthest(p)));
+		set = cubeSet(30);
+		double time1 = 0, time2 = 0, time3 = 0, result1 = 0, result2 = 0, result3 = 0;
 		double start = System.currentTimeMillis();
 		result1 = diameterFast(set, 1);
 		double end = System.currentTimeMillis();
@@ -17,10 +13,16 @@ public class Approx {
 		result2 = diameterRandomized(set, 1);
 		end = System.currentTimeMillis();
 		time2 = end - start;
+		start = System.currentTimeMillis();
+		result3 = diameterBruteForce(set);
+		end = System.currentTimeMillis();
+		time3 = end - start;
 		System.out.println("Fast: " + time1);
 		System.out.println(result1);
 		System.out.println("Randomized: " + time2);
 		System.out.println(result2);
+		System.out.println("Brute Force: " + time3);
+		System.out.println(result3);
 	}
 	
 	//Fast approximation algorithm:
@@ -72,7 +74,7 @@ public class Approx {
 		//O(n^2)
 		double dmax = 0, distance = 0;
 		for (int i = 0;i < points.length;i++) {
-			for (int j = 0;j < points.length;i++) {
+			for (int j = 0;j < points.length;j++) {
 				distance = distance(points[i], points[j]);
 				if (distance > dmax) dmax = distance;
 			}
@@ -124,9 +126,20 @@ public class Approx {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		for (int i = 0;i < set.length;i++) {
-			sb.append((int)set[i] + ",");
+			sb.append(set[i] + ",");
 		} sb.deleteCharAt(sb.length()-1);
 		return sb.append("}").toString();
+	}
+	
+	//Display method for an array:
+	public static void display(double[] set) {
+		//O(n)
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		for (int i = 0;i < set.length;i++) {
+			sb.append(set[i] + ",");
+		} sb.deleteCharAt(sb.length()-1);
+		System.out.println(sb.append("}").toString());
 	}
 	
 	//Display method for a 2D array:
