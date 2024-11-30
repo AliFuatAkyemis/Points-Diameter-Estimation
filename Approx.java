@@ -3,8 +3,7 @@ public class Approx {
 	private static double[][] set;
 	
 	public static void main(String[] args) {
-		set = cubeSet(30);
-		display2D(set);
+		set = randomSet(1000000,2,100);
 		double start = 0, end = 0, time1 = 0, time2 = 0, time3 = 0, result1 = 0, result2 = 0, result3 = 0;
 		start = System.currentTimeMillis();
 		result1 = diameterFast(set, 1);
@@ -14,24 +13,25 @@ public class Approx {
 		result2 = diameterRandomized(set, 1);
 		end = System.currentTimeMillis();
 		time2 = end - start;
-		start = System.currentTimeMillis();
-		result3 = diameterBruteForce(set);
-		end = System.currentTimeMillis();
-		time3 = end - start;
+//		start = System.currentTimeMillis();
+//		result3 = diameterBruteForce(set);
+//		end = System.currentTimeMillis();
+//		time3 = end - start;
 		System.out.println("Fast: " + time1);
-		System.out.println(result1);
+//		System.out.println(result1);
 		System.out.println("Randomized: " + time2);
-		System.out.println(result2);
-		System.out.println("Brute Force: " + time3);
-		System.out.println(result3);
+//		System.out.println(result2);
+//		System.out.println("Brute Force: " + time3);
+//		System.out.println(result3);
 	}
 	
 	//*****************Approximation Algorithms*****************//
 	
-	//*****************Ali Fuat Akyemiş*****************//
+	//*****************AliFuatAkyemiş*****************//
 	
 	//Fast approximation algorithm:
 	public static double diameterFast(double[][] points, int t) {
+		//O(m*n) if m is much smaller than n each iteration requires 4*m*n operations
 		double dmax = 0; int i = 0;
 		int k = (int) (Math.random() * points.length);
 		double[] p = points[k];
@@ -51,6 +51,7 @@ public class Approx {
 	
 	//Randomized version of fast approximation algorithm:
 	public static double diameterRandomized(double[][] points, int t) {
+		//O(m*n) each iteration requires 3*m*n operations
 		double dmax = 0; int i = 0;
 		int k = (int) (Math.random() * points.length);
 		double[] p = points[k];
@@ -87,13 +88,13 @@ public class Approx {
 		return dmax;
 	}
 	
-	//*****************Zulal Bozyel*****************//
+	//*****************ZulalBozyel*****************//
 	
-	//*****************Melike Esra Öz*****************//
+	//*****************MelikeEsraÖz*****************//
 	
-	//*****************Hüseyin Mert Afşarlı*****************//
+	//*****************HüseyinMertAfşarlı*****************//
 	
-	//*****************Ramazan Şahin*****************//
+	//*****************RamazanŞahin*****************//
 	
 	//*****************Generator Methods*****************//
 	
@@ -101,6 +102,7 @@ public class Approx {
 	
 	//Square Generator:
 	public static double[][] squareSet(int size) {
+		//O(n^2)
 		size++;
 		double[][] res = new double[size*size][2];
 		for (int i = 0;i < size;i++) {
@@ -114,6 +116,7 @@ public class Approx {
 	
 	//Rectangle Generator:
 	public static double[][] rectangleSet(int a, int b) {
+		//O(n^2)
 		a++;b++;
 		double[][] res = new double[a*b][2];
 		for (int i = 0;i < a;i++) {
@@ -127,8 +130,9 @@ public class Approx {
 	
 	//Circle Generator:
 	public static double[][] circleSet(int radius) {
-		//Work in progress!
-		return null;
+		double[][] res = new double[radius][2];
+		
+		return res;
 	}
 	
 	//*****************3D Generators*****************//
@@ -152,6 +156,7 @@ public class Approx {
 	
 	//Prism Generator:
 	public static double[][] prismSet(int a, int b, int c) {
+		//O(n^3)
 		a++;b++;c++;
 		double[][] res = new double[a*b*c][3];
 		for (int i = 0;i < a;i++) {
@@ -178,6 +183,19 @@ public class Approx {
 		return null;
 	}
 	
+	//*****************Multi-Dimensional Generators*****************//
+	
+	//Random Generator:
+	public static double[][] randomSet(int size, int dimension, int max) {
+		double[][] res = new double[size][dimension];
+		for (int i = 0;i < size;i++) {
+			for (int j = 0;j < dimension;j++) {
+				res[i][j] = Math.random()*max;
+			}
+		}
+		return res;
+	}
+	
 	//*****************Assistance Methods*****************//
 	
 	//Distance between 2 given points:
@@ -192,7 +210,7 @@ public class Approx {
 	
 	//Farthest point in the set to given point:
 	public static double[] farthest(double[] point) {
-		//O(n)
+		//O(m*n)
 		double[] res = new double[point.length];
 		double max = 0;
 		for (int i = 0;i < set.length;i++) {
@@ -222,7 +240,7 @@ public class Approx {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		for (int i = 0;i < set.length;i++) {
-			sb.append((int)set[i] + ",");
+			sb.append(set[i] + ",");
 		} sb.deleteCharAt(sb.length()-1);
 		return sb.append("}").toString();
 	}
