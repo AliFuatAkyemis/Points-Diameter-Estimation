@@ -25,6 +25,10 @@ public class Approx {
 		System.out.println(result3);
 	}
 	
+	//*****************Approximation Algorithms*****************//
+	
+	//*****************Ali Fuat Akyemiş*****************//
+	
 	//Fast approximation algorithm:
 	public static double diameterFast(double[][] points, int t) {
 		double dmax = 0; int i = 0;
@@ -82,9 +86,39 @@ public class Approx {
 		return dmax;
 	}
 	
-	//Assistance Methods:
+	//*****************Zulal Bozyel*****************//
 	
-	//Cubic set initializer:
+	//*****************Melike Esra Öz*****************//
+	
+	//*****************Hüseyin Mert Afşarlı*****************//
+	
+	//*****************Ramazan Şahin*****************//
+	
+	//*****************Generator Methods*****************//
+	
+	//*****************2D Generators*****************//
+	
+	//Square Generator:
+	public static double[][] squareSet(int size) {
+		//Work in progress!
+		return null;
+	}
+	
+	//Rectangle Generator:
+	public static double[][] rectangleSet(int a, int b) {
+		//Work in progress!
+		return null;
+	}
+	
+	//Circle Generator:
+	public static double[][] circleSet(int radius) {
+		//Work in progress!
+		return null;
+	}
+	
+	//*****************3D Generators*****************//
+	
+	//Cube Generator:
 	public static double[][] cubeSet(int size) {
 		//O(n^3)
 		size++;
@@ -100,6 +134,26 @@ public class Approx {
 		}
 		return res;
 	}
+	
+	//Prism Generator:
+	public static double[][] prismSet(int a, int b, int c) {
+		//Work in progress!
+		return null;
+	}
+	
+	//Sphere Generator:
+	public static double[][] sphereSet(int size) {
+		//Work in progress!
+		return null;
+	}
+	
+	//Cylinder Generator:
+	public static double[][] cylinderSet(int radius, int height) {
+		//Work in progress!
+		return null;
+	}
+	
+	//*****************Assistance Methods*****************//
 	
 	//Distance between 2 given points:
 	public static double distance(double[] p1, double[] p2) {
