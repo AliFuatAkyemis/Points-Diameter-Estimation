@@ -84,6 +84,23 @@ public class Approx {
 	
 	//Assistance Methods:
 	
+	//Cubic set initializer:
+	public static double[][] cubeSet(int size) {
+		//O(n^3)
+		size++;
+		double[][] res = new double[size*size*size][3];
+		for (int i = 0;i < size;i++) {
+			for (int j = 0;j < size;j++) {
+				for (int k = 0;k < size;k++) {
+					res[i*size*size+j*size+k][0] = i;
+					res[i*size*size+j*size+k][1] = j;
+					res[i*size*size+j*size+k][2] = k;
+				}
+			}
+		}
+		return res;
+	}
+	
 	//Distance between 2 given points:
 	public static double distance(double[] p1, double[] p2) {
 		//O(m)
@@ -151,22 +168,5 @@ public class Approx {
 			sb.append(arrayToString(set[i]) + ",");
 		} sb.deleteCharAt(sb.length()-1);
 		System.out.println(sb.append("}").toString());
-	}
-		
-	//Cubic set initializer:
-	public static double[][] cubeSet(int size) {
-		//O(n^3)
-		size++;
-		double[][] res = new double[size*size*size][3];
-		for (int i = 0;i < size;i++) {
-			for (int j = 0;j < size;j++) {
-				for (int k = 0;k < size;k++) {
-					res[i*size*size+j*size+k][0] = i;
-					res[i*size*size+j*size+k][1] = j;
-					res[i*size*size+j*size+k][2] = k;
-				}
-			}
-		}
-		return res;
 	}
 }
