@@ -4,10 +4,11 @@ public class Approx {
 	
 	public static void main(String[] args) {
 		set = cubeSet(30);
-		double time1 = 0, time2 = 0, time3 = 0, result1 = 0, result2 = 0, result3 = 0;
-		double start = System.currentTimeMillis();
+		display2D(set);
+		double start = 0, end = 0, time1 = 0, time2 = 0, time3 = 0, result1 = 0, result2 = 0, result3 = 0;
+		start = System.currentTimeMillis();
 		result1 = diameterFast(set, 1);
-		double end = System.currentTimeMillis();
+		end = System.currentTimeMillis();
 		time1 = end - start;
 		start = System.currentTimeMillis();
 		result2 = diameterRandomized(set, 1);
@@ -100,14 +101,28 @@ public class Approx {
 	
 	//Square Generator:
 	public static double[][] squareSet(int size) {
-		//Work in progress!
-		return null;
+		size++;
+		double[][] res = new double[size*size][2];
+		for (int i = 0;i < size;i++) {
+			for (int j = 0;j < size;j++) {
+				res[i*size+j][0] = i;
+				res[i*size+j][1] = j;
+			}
+		}
+		return res;
 	}
 	
 	//Rectangle Generator:
 	public static double[][] rectangleSet(int a, int b) {
-		//Work in progress!
-		return null;
+		a++;b++;
+		double[][] res = new double[a*b][2];
+		for (int i = 0;i < a;i++) {
+			for (int j = 0;j < b;j++) {
+				res[i*b+j][0] = i;
+				res[i*b+j][1] = j;
+			}
+		}
+		return res;
 	}
 	
 	//Circle Generator:
@@ -137,8 +152,18 @@ public class Approx {
 	
 	//Prism Generator:
 	public static double[][] prismSet(int a, int b, int c) {
-		//Work in progress!
-		return null;
+		a++;b++;c++;
+		double[][] res = new double[a*b*c][3];
+		for (int i = 0;i < a;i++) {
+			for (int j = 0;j < b;j++) {
+				for (int k = 0;k < c;k++) {
+					res[i*b*c+j*c+k][0] = i;
+					res[i*b*c+j*c+k][1] = j;
+					res[i*b*c+j*c+k][2] = k;
+				}
+			}
+		}
+		return res;
 	}
 	
 	//Sphere Generator:
@@ -197,7 +222,7 @@ public class Approx {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		for (int i = 0;i < set.length;i++) {
-			sb.append(set[i] + ",");
+			sb.append((int)set[i] + ",");
 		} sb.deleteCharAt(sb.length()-1);
 		return sb.append("}").toString();
 	}
