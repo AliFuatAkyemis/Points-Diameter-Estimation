@@ -1,6 +1,10 @@
 
 public class Utility {
 	
+	public static void main(String[] args) {
+		System.out.println(circleSet(707).length);
+	}
+	
 	//*****************Generator Methods*****************//
 	
 	//*****************2D Generators*****************//
@@ -35,9 +39,37 @@ public class Utility {
 		
 		//Circle Generator:
 		public static double[][] circleSet(int radius) {
-			double[][] res = new double[radius][2];
-			
+			if (radius == 0) return null;
+			int size = circleSize(radius);
+			double[][] res = new double[size][2];
+			for (int i = 1;i <= radius;i++) {
+				circleLoop(res, i, circleSize(i-1));
+			}
 			return res;
+		}
+		
+		//Circle Assist:
+		private static double circleFunc(double x, double radius) {
+			return Math.sqrt((radius*radius)-(x*x));
+		}
+
+		//Circle Assist:
+		private static int circleSize(int radius) {
+			if (radius == 0) return 0;
+			int res = 0;
+			for (int i = 1;i <= radius;i++) {
+				res += 4*i+2;
+			}
+			return res;
+		}
+
+		//Circle Assist:
+		private static void circleLoop(double[][] set, int radius, int lastIndex) {
+			for (int i = -radius, j = lastIndex;i <= radius;i++,j += 2) {
+				double y = circleFunc(i, radius);
+				set[j][0] = i;set[j][1] = y;
+				set[j+1][0] = i;set[j+1][1] = -y;
+			}
 		}
 		
 		//*****************3D Generators*****************//
