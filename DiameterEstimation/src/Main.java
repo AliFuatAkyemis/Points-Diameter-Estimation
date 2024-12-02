@@ -18,55 +18,16 @@ public class Main {
     	    	set9 = Utility.circleSet(707),
     			set10 = Utility.randomSet(10000, 2, 100),
     			set11 = Utility.randomSet(100000, 2, 100),
-    			set12 = Utility.randomSet(1000000, 2, 100);
-    	
-    	System.out.printf("SquareSet(10000):\n");
-        System.out.println("--------------------------");
-    	//Simple2D:
-        testSimple2D(set1);
-        System.out.println("--------------------------");
-		//Fast:
-        testFast(set1);
-        System.out.println("--------------------------");
-		//Randomized:
-        testRandomized(set1);
-        System.out.println("--------------------------");
-        //Better:
-        testBetter(set1, epsilon);
-        System.out.println("--------------------------");
-        System.out.println();
-
-//    	System.out.printf("SquareSet(100000):\n");
-//        System.out.println("--------------------------");
-//    	//Simple2D:
-//        testSimple2D(set2);
-//        System.out.println("--------------------------");
-//		//Fast:
-//        testFast(set2);
-//        System.out.println("--------------------------");
-//		//Randomized:
-//        testRandomized(set2);
-//        System.out.println("--------------------------");
-//        //Better:
-//        testBetter(set2, epsilon);
-//        System.out.println("--------------------------");
-//        System.out.println();
-//
-//    	System.out.printf("SquareSet(1000000):\n");
-//        System.out.println("--------------------------");
-//    	//Simple2D:
-//        testSimple2D(set3);
-//        System.out.println("--------------------------");
-//		//Fast:
-//        testFast(set3);
-//        System.out.println("--------------------------");
-//		//Randomized:
-//        testRandomized(set3);
-//        System.out.println("--------------------------");
-//        //Better:
-//        testBetter(set3, epsilon);
-//        System.out.println("--------------------------");
-//        System.out.println();
+    			set12 = Utility.randomSet(1000000, 2, 100),
+    			set13 = Utility.cubeSet(22),
+    			set14 = Utility.cubeSet(47),
+    			set15 = Utility.cubeSet(100),
+    			set16 = Utility.prismSet(40, 5, 50),
+    			set17 = Utility.prismSet(40, 50, 50),
+    			set18 = Utility.prismSet(400, 50, 50),
+    			set19 = Utility.randomSet(10000, 3, 100),
+    			set20 = Utility.randomSet(100000, 3, 100),
+    			set21 = Utility.randomSet(1000000, 3, 100);
     }
     
     public static void testSimple2D(double[][] set) {
@@ -114,5 +75,14 @@ public class Main {
         System.out.println(diameter);
         System.out.println("Better(Rounded): " + time2);
         System.out.println(roundedDiameter);
+    }
+    
+    public static void testLow(double[][] set, double epsilon) {
+        Long start = System.nanoTime();
+        double approxDiameter = ApproximateDiameter.approximateDiameter(set, epsilon);
+        Long end = System.nanoTime();
+        double time = (end-start) / 1_000_000.0;
+        System.out.println("LowDimesion: " + time);
+        System.out.println(approxDiameter);
     }
 }
