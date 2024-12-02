@@ -1,10 +1,6 @@
 
 public class Utility {
 	
-	public static void main(String[] args) {
-		System.out.println(circleSet(707).length);
-	}
-	
 	//*****************Generator Methods*****************//
 	
 	//*****************2D Generators*****************//
