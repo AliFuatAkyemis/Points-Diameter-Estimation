@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
     	//2D set samples:
     	double epsilon = 0.0001;
+    	int iteration = 1;
     	double[][] 
     			set1 = Utility.squareSet(100),
     			set2 = Utility.squareSet(317),
@@ -25,9 +26,32 @@ public class Main {
     			set16 = Utility.prismSet(40, 5, 50),
     			set17 = Utility.prismSet(40, 50, 50),
     			set18 = Utility.prismSet(400, 50, 50),
-    			set19 = Utility.randomSet(10000, 3, 100),
-    			set20 = Utility.randomSet(100000, 3, 100),
-    			set21 = Utility.randomSet(1000000, 3, 100);
+    			set19 = Utility.cylinderSet(iteration, iteration),
+    			set20 = Utility.cylinderSet(iteration, iteration),
+    			set21 = Utility.cylinderSet(iteration, iteration),
+    			set22 = Utility.randomSet(10000, 3, 100),
+    			set23 = Utility.randomSet(100000, 3, 100),
+    			set24 = Utility.randomSet(1000000, 3, 100);
+    	
+    	
+    }
+    
+    public static void testFast(double[][] set, int iteration) {
+		long start = System.nanoTime();
+		double result2 = FastApprox.diameterFast(set, iteration); //FAST
+		long end = System.nanoTime();
+		double time = (end - start) / 1_000_000.0;
+		System.out.println("Fast: " + time);
+        System.out.println(result2);
+    }
+    
+    public static void testRandomized(double[][] set, int iteration) {
+		long start = System.nanoTime();
+		double result3 = RandomizedApprox.diameterRandomized(set, iteration); //RANDOMIZED
+		long end = System.nanoTime();
+		double time = (end - start) / 1_000_000.0;
+		System.out.println("Randomized: " + time);
+        System.out.println(result3);
     }
     
     public static void testSimple2D(double[][] set) {
@@ -41,24 +65,6 @@ public class Main {
 		double time = (end - start) / 1_000_000.0;
         System.out.println("Simple2D: " + time);
         System.out.println(result1);
-    }
-    
-    public static void testFast(double[][] set) {
-		long start = System.nanoTime();
-		double result2 = FastApprox.diameterFast(set, 1); //FAST
-		long end = System.nanoTime();
-		double time = (end - start) / 1_000_000.0;
-		System.out.println("Fast: " + time);
-        System.out.println(result2);
-    }
-    
-    public static void testRandomized(double[][] set) {
-		long start = System.nanoTime();
-		double result3 = FastApprox.diameterRandomized(set, 1); //RANDOMIZED
-		long end = System.nanoTime();
-		double time = (end - start) / 1_000_000.0;
-		System.out.println("Randomized: " + time);
-        System.out.println(result3);
     }
     
     public static void testBetter(double[][] set, double epsilon) {
@@ -77,12 +83,21 @@ public class Main {
         System.out.println(roundedDiameter);
     }
     
-    public static void testLow(double[][] set, double epsilon) {
+    public static void testLowDim(double[][] set, double epsilon) {
         Long start = System.nanoTime();
-        double approxDiameter = ApproximateDiameter.approximateDiameter(set, epsilon);
+        double approxDiameter = LowDimApprox.approximateDiameter(set, epsilon); //LOWDIMENSION
         Long end = System.nanoTime();
         double time = (end-start) / 1_000_000.0;
         System.out.println("LowDimesion: " + time);
+        System.out.println(approxDiameter);
+    }
+    
+    public static void testBasic(double[][] set) {
+        Long start = System.nanoTime();
+        double approxDiameter = BasicApprox.algorithmA(set); //BASIC
+        Long end = System.nanoTime();
+        double time = (end-start) / 1_000_000.0;
+        System.out.println("Basic: " + time);
         System.out.println(approxDiameter);
     }
 }

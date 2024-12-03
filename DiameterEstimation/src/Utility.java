@@ -1,6 +1,12 @@
 
 public class Utility {
 	
+	public static void main(String[] args) {
+		double[][] set = cylinderSet(2, 2);
+		System.out.println(set.length);
+		display2D(set);
+	}
+	
 	//*****************Generator Methods*****************//
 	
 	//*****************2D Generators*****************//
@@ -112,8 +118,41 @@ public class Utility {
 		
 		//Cylinder Generator:
 		public static double[][] cylinderSet(int radius, int height) {
-			//Work in progress!
-			return null;
+			double[][] temp = circleSet(radius);
+			int size = cylinderSize(radius, height);
+			double[][] res = new double[size][3];
+			for (int i = 0;i < temp.length;i++) {
+				res[i][0] = temp[i][0];
+				res[i][1] = temp[i][1];
+			}
+			for (int i = circleSize(radius),j = 0;j < height;i++,j++) {
+				res[i][2] = j;
+			}
+			return res;
+		}
+		
+		//Cylinder Assist:
+		private static int cylinderSize(int radius, int height) {
+			if (radius == 0) return 0;
+			int res = 0;
+			for (int i = 1;i <= radius;i++) {
+				res += 4*i+2;
+			}
+			res *= height;
+			return res;
+		}
+		
+		//Cylinder Assist:
+		private static void cylinderLoop(double[][] set, int radius, int height, int lastIndex) {
+			for (int i = -radius, j = lastIndex;i <= radius;i++,j += 2) {
+				double y = circleFunc(i, radius);
+				set[j][0] = i;set[j][1] = y;
+				set[j+1][0] = i;set[j+1][1] = -y;
+				for (int k = 0;k <= height;k++) {
+					set[j][0] = k;
+					set[j+1][0] = k;
+				}
+			}
 		}
 		
 		//*****************Multi-Dimensional Generators*****************//
