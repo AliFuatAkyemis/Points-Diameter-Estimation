@@ -9,64 +9,10 @@
 //e-approximation bound
 
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class LowDimApprox {
-
-    // Generate a random set of points in n-dimensional space
-    public static double[][] randomSet(int size, int dimension, int max) {
-        double[][] res = new double[size][dimension];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < dimension; j++) {
-                res[i][j] = Math.random() * max;
-            }
-        }
-        return res;
-    }
-
-    // Calculate the Euclidean distance between two points
-    public static double distance(double[] p1, double[] p2) {
-        double distance = 0;
-        for (int i = 0; i < p1.length; i++) {
-            distance += Math.pow((p1[i] - p2[i]), 2);
-        }
-        return Math.sqrt(distance);
-    }
-
-    // Brute force method to calculate the diameter of the set
-    public static double diameterBruteForce(double[][] points) {
-        double dmax = 0;
-        for (int i = 0; i < points.length; i++) {
-            for (int j = i + 1; j < points.length; j++) {  // Avoid duplicate pairs
-                double dist = distance(points[i], points[j]);
-                if (dist > dmax) dmax = dist;
-            }
-        }
-        return dmax;
-    }
-
-    public static void main(String[] args) {
-        // Generate a random set of 2D points
-        double[][] points = randomSet(1000, 2, 10);
-        double epsilon = 0.1;  // Approximation factor
-
-        // Brute force calculation
-        double bruteStart = System.nanoTime();
-        double brute = diameterBruteForce(points);
-        double bruteEnd = System.nanoTime();
-        System.out.println("Brute Force Time: " + (bruteEnd - bruteStart) + " ns");
-        System.out.printf("Actual Diameter: %.4f%n", brute);
-
-        // Approximate diameter calculation
-        double approxStart = System.nanoTime();
-        double approxDiameter = approximateDiameter(points, epsilon);
-        double approxEnd = System.nanoTime();
-        System.out.println("Approximation Time: " + (approxEnd - approxStart) + " ns");
-        System.out.printf("Approximate Diameter: %.4f%n", approxDiameter);
-
-        System.out.println("Approximation Ratio: " + (brute / approxDiameter));
-    }
-
     // Approximate the diameter of the point set
     public static double approximateDiameter(double[][] points, double epsilon) {
         double[][] snappedPoints = snapToGrid(points, epsilon);
@@ -76,7 +22,7 @@ public class LowDimApprox {
         for (double[] pair : diametricalPairs) {
             double[] p1 = {pair[0], pair[1]};
             double[] p2 = {pair[2], pair[3]};
-            double diameter = distance(p1, p2);
+            double diameter = Utility.distance(p1, p2);
             maxDiameter = Math.max(maxDiameter, diameter);
         }
 

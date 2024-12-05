@@ -1,12 +1,6 @@
 
 public class Utility {
 	
-	public static void main(String[] args) {
-		double[][] set = cylinderSet(2, 2);
-		System.out.println(set.length);
-		display2D(set);
-	}
-	
 	//*****************Generator Methods*****************//
 	
 	//*****************2D Generators*****************//
@@ -60,14 +54,16 @@ public class Utility {
 			if (radius == 0) return 0;
 			int res = 0;
 			for (int i = 1;i <= radius;i++) {
-				res += 4*i+2;
+				res += 4*i;
 			}
 			return res;
 		}
 
 		//Circle Assist:
 		private static void circleLoop(double[][] set, int radius, int lastIndex) {
-			for (int i = -radius, j = lastIndex;i <= radius;i++,j += 2) {
+			set[lastIndex][0] = -radius;set[lastIndex][1] = 0;
+			set[lastIndex+1][0] = radius;set[lastIndex+1][1] = 0;
+			for (int i = -radius+1, j = lastIndex+2;i < radius;i++,j += 2) {
 				double y = circleFunc(i, radius);
 				set[j][0] = i;set[j][1] = y;
 				set[j+1][0] = i;set[j+1][1] = -y;
@@ -118,41 +114,18 @@ public class Utility {
 		
 		//Cylinder Generator:
 		public static double[][] cylinderSet(int radius, int height) {
+			height++;
 			double[][] temp = circleSet(radius);
-			int size = cylinderSize(radius, height);
-			double[][] res = new double[size][3];
+			double[][] res = new double[temp.length*height][3];
 			for (int i = 0;i < temp.length;i++) {
-				res[i][0] = temp[i][0];
-				res[i][1] = temp[i][1];
-			}
-			for (int i = circleSize(radius),j = 0;j < height;i++,j++) {
-				res[i][2] = j;
-			}
-			return res;
-		}
-		
-		//Cylinder Assist:
-		private static int cylinderSize(int radius, int height) {
-			if (radius == 0) return 0;
-			int res = 0;
-			for (int i = 1;i <= radius;i++) {
-				res += 4*i+2;
-			}
-			res *= height;
-			return res;
-		}
-		
-		//Cylinder Assist:
-		private static void cylinderLoop(double[][] set, int radius, int height, int lastIndex) {
-			for (int i = -radius, j = lastIndex;i <= radius;i++,j += 2) {
-				double y = circleFunc(i, radius);
-				set[j][0] = i;set[j][1] = y;
-				set[j+1][0] = i;set[j+1][1] = -y;
-				for (int k = 0;k <= height;k++) {
-					set[j][0] = k;
-					set[j+1][0] = k;
+				double[] point = temp[i];
+				for (int j = i*height, k = 0;k < height;j++,k++) {
+					res[j][0] = point[0];
+					res[j][1] = point[1];
+					res[j][2] = k;
 				}
 			}
+			return res;
 		}
 		
 		//*****************Multi-Dimensional Generators*****************//
@@ -228,8 +201,8 @@ public class Utility {
 			System.out.println(sb.append("}").toString());
 		}
 		
-		//Display method for a 2D array:
-		public static void display2D(double[][] set) {
+		//Display method for Set:
+		public static void displaySet(double[][] set) {
 			//O(n)
 			StringBuilder sb = new StringBuilder();
 			sb.append("{");
