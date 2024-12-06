@@ -3,8 +3,6 @@ import java.util.List;
 public class SimpleApprox {
     public static double calculateApproximateDiameter(List<Point> points, int n) {
         if (points.size() < 2) return 0;
-
-//        Point origin = points.get(0);
         double sumX = 0, sumY = 0;
         for (Point p : points) {
         	sumX += p.x;sumY += p.y;

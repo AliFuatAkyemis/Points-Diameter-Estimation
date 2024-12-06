@@ -1,14 +1,3 @@
-//first initialize the point set
-//define epsilon
-//snapping points to an e-grid
-//projecting onto directions
-    //1.projection along the x-axis
-    //2.projection along the y-axis
-    //3.projection along the diagonal
-//calculate approximate diameter
-//e-approximation bound
-
-
 import java.util.List;
 import java.util.ArrayList;
 
