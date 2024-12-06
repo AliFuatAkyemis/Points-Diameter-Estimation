@@ -1,6 +1,6 @@
 
 public class BasicApprox{    
-    public static double algorithmA(double[][]points){
+    public static double diameterBasic(double[][]points){
         double[] p = points[0];
 
         double[] q = Utility.farthest(p, points);

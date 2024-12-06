@@ -117,7 +117,7 @@ public class Main {
     
     public static void testBasic(double[][] set) {
         Long start = System.nanoTime();
-        double approxDiameter = BasicApprox.algorithmA(set); //BASIC
+        double approxDiameter = BasicApprox.diameterBasic(set); //BASIC
         Long end = System.nanoTime();
         double time = (end-start) / 1_000_000.0;
         System.out.println("Basic: " + time);
