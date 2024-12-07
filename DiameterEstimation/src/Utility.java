@@ -182,6 +182,7 @@ public class Utility {
 		//toString() method for an array:
 		public static String arrayToString(double[] set) {
 			//O(n)
+			if (set == null) return "null";
 			StringBuilder sb = new StringBuilder();
 			sb.append("{");
 			for (int i = 0;i < set.length;i++) {
@@ -193,6 +194,7 @@ public class Utility {
 		//Display method for an array:
 		public static void display(double[] set) {
 			//O(n)
+			if (set == null) System.out.println("null");;
 			StringBuilder sb = new StringBuilder();
 			sb.append("{");
 			for (int i = 0;i < set.length;i++) {

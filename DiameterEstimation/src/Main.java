@@ -36,34 +36,6 @@ public class Main {
     			set25 = Utility.randomSet(1000000, 4, 200),
     			set26 = Utility.randomSet(1000000, 5, 200),
     			set27 = Utility.randomSet(1000000, 100, 200);
-    	
-    	testNew(set1, sampleSize);
-    	testNew(set2, sampleSize);
-    	testNew(set3, sampleSize);
-    	testNew(set4, sampleSize);
-    	testNew(set5, sampleSize);
-    	testNew(set6, sampleSize);
-    	testNew(set7, sampleSize);
-    	testNew(set8, sampleSize);
-    	testNew(set9, sampleSize);
-    	testNew(set10, sampleSize);
-    	testNew(set11, sampleSize);
-    	testNew(set12, sampleSize);
-    	testNew(set13, sampleSize);
-    	testNew(set14, sampleSize);
-    	testNew(set15, sampleSize);
-    	testNew(set16, sampleSize);
-    	testNew(set17, sampleSize);
-    	testNew(set18, sampleSize);
-    	testNew(set19, sampleSize);
-    	testNew(set20, sampleSize);
-    	testNew(set21, sampleSize);
-    	testNew(set22, sampleSize);
-    	testNew(set23, sampleSize);
-    	testNew(set24, sampleSize);
-    	testNew(set25, sampleSize);
-    	testNew(set26, sampleSize);
-    	testNew(set27, sampleSize);
     }
     
     public static void testFast(double[][] set, int iteration) {
@@ -124,9 +96,9 @@ public class Main {
         System.out.println(approxDiameter);
     }
     
-    public static void testNew(double[][] set, int n) {
+    public static void testNew(double[][] set) {
         Long start = System.nanoTime();
-        double approxDiameter = NewApprox.diameterNew(set, n); //NEW
+        double approxDiameter = NewApprox.diameterNew(set); //NEW
         Long end = System.nanoTime();
         double time = (end-start) / 1_000_000.0;
         System.out.println("New: " + time);
