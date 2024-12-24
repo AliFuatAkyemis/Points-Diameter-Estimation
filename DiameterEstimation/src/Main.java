@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
     	double epsilon = 0.0001;
     	double gridSize = 10;
     	int iteration = 1;
@@ -68,13 +69,13 @@ public class Main {
         System.out.println(result1);
     }
     
-    public static void testBetter(double[][] set, double epsilon, double round) {
-        double[][] roundedPoints = BetterApprox.roundToGrid(set, round);
+    public static void testRound(double[][] set, double epsilon, double round) {
+        double[][] roundedPoints = RoundApprox.roundToGrid(set, round);
         long start = System.nanoTime();
-        double diameter = BetterApprox.calculateDiameter(roundedPoints, epsilon); //BETTER
+        double diameter = RoundApprox.calculateDiameter(roundedPoints, epsilon); //ROUND
         long end = System.nanoTime();
         double time1 = (end - start) / 1_000_000.0;
-        System.out.println("Better: " + time1);
+        System.out.println("Round: " + time1);
         System.out.println(diameter);
     }
     
